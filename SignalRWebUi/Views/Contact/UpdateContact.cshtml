@@ -1,0 +1,54 @@
+﻿@model UpdateContactDto
+@{
+	ViewData["Title"] = "UpdateContact";
+	Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<h1>UpdateCategory</h1>
+
+<div class="content">
+	<div class="container-fluid">
+		<h4 class="page-title">Alt İletişim Bilgileri İşlemleri</h4>
+		<div class="row">
+			<div class="col-md-12">
+				<form method="post">
+					<div class="card">
+						<div class="card-header">
+							<div class="card-title">Alt İletişim Bilgileri - Güncelleme Sayfası</div>
+						</div>
+						<input type="hidden" asp-for="ContactID" />
+						<div class="card-body">
+							<div class="form-group">
+								<input type="hidden" asp-for="ContactID" />
+								<label for="Location">Location</label>
+								<input type="text" class="form-control" asp-for="Location" id="Location">
+							</div>
+						</div>
+						<div class="card-body">
+							<div class="form-group">
+								<label for="PhoneNumber">Telefon Numarası</label>
+								<input type="text" class="form-control" asp-for="PhoneNumber" id="PhoneNumber">
+							</div>
+						</div>
+						<div class="card-body">
+							<div class="form-group">
+								<label for="Mail">Mail'</label>
+								<input type="email" class="form-control" asp-for="Mail" id="Mail">
+							</div>
+						</div>
+						<div class="card-body">
+							<div class="form-group">
+								<label for="FooterDescription">Footer Description'</label>
+								<textarea class="form-control" asp-for="FooterDescription"> Footer Description</textarea>
+							</div>
+						</div>
+						<div class="card-action">
+							<button class="btn btn-primary">Alt İletişim Alanını Güncelle</button>
+						</div>
+					</div>
+				</form>
+			</div>
+
+		</div>
+	</div>
+</div>
