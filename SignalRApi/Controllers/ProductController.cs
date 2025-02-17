@@ -38,11 +38,46 @@ namespace SignalRApi.Controllers
             });
             return Ok("Product eklendi");
         }
+        [HttpGet("ProductCount")]
+        public IActionResult ProductCount()
+        {
+            var value= _productService.TProductCount();
+            return Ok(value);
+        }
+        [HttpGet("ProductCountByHamburger")]
+        public IActionResult ProductCountByHamburger()
+        {
+            var value = _productService.ProductCountByCategoryNameHamburger();
+            return Ok(value);
+        }
+        [HttpGet("ProductCountByDrink")]
+        public IActionResult ProductCountByDrink()
+        {
+            var value = _productService.ProductCountByCategoryNameDrink();
+            return Ok(value);
+        }
+        [HttpGet("ProductPriceAvg")]
+        public IActionResult ProductPriceAvg()
+        {
+            return Ok(_productService.TProductPriceAvg());  
+        }
         [HttpGet]
         public IActionResult ProductList()
         {
             var value = _mapper.Map<List<ResultProductDto>>(_productService.TGetListAll());
             return Ok(value);   
+        }
+        [HttpGet("ProductNameByMaxPrice")]
+        public IActionResult ProductNameByMaxPrice()
+        {
+            var value=_productService.TProductNameByMaxPrice(); 
+            return Ok(value);   
+        }
+        [HttpGet("ProductNameByMinPrice")]
+        public IActionResult ProductNameByMinPrice()
+        {
+            var value = _productService.TProductNameByMinPrice();
+            return Ok(value);
         }
         [HttpPut]
         public IActionResult UpdateProduct(UpdateProductDto updateProductDto)
@@ -89,6 +124,14 @@ namespace SignalRApi.Controllers
             });
             return Ok(values);
 
+        }
+
+        [HttpGet("ProductAvgPriceByHamburger")]
+        public IActionResult ProductAvgPriceByHamburger()
+        {
+            var context = new SignalRContext();
+            var value = _productService.TProductAvgPriceByHamburger();
+            return Ok(value);
         }
     }
 }
