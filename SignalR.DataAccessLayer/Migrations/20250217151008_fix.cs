@@ -5,25 +5,25 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SignalR.DataAccessLayer.Migrations
 {
-    public partial class mig_add_order : Migration
+    public partial class fix : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_Testimonials",
-                table: "Testimonials");
-
-            migrationBuilder.RenameTable(
-                name: "Testimonials",
-                newName: "Testimonial");
-
-            migrationBuilder.AddPrimaryKey(
-                name: "PK_Testimonial",
-                table: "Testimonial",
-                column: "TestimonialID");
+            migrationBuilder.CreateTable(
+                name: "MoneyCases",
+                columns: table => new
+                {
+                    MoneyCaseID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TotalAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MoneyCases", x => x.MoneyCaseID);
+                });
 
             migrationBuilder.CreateTable(
-                name: "Order",
+                name: "Orders",
                 columns: table => new
                 {
                     OrderID = table.Column<int>(type: "int", nullable: false)
@@ -35,11 +35,11 @@ namespace SignalR.DataAccessLayer.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Order", x => x.OrderID);
+                    table.PrimaryKey("PK_Orders", x => x.OrderID);
                 });
 
             migrationBuilder.CreateTable(
-                name: "OrderDetail",
+                name: "OrderDetails",
                 columns: table => new
                 {
                     OrderDetailID = table.Column<int>(type: "int", nullable: false)
@@ -52,15 +52,15 @@ namespace SignalR.DataAccessLayer.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrderDetail", x => x.OrderDetailID);
+                    table.PrimaryKey("PK_OrderDetails", x => x.OrderDetailID);
                     table.ForeignKey(
-                        name: "FK_OrderDetail_Order_OrderID",
+                        name: "FK_OrderDetails_Orders_OrderID",
                         column: x => x.OrderID,
-                        principalTable: "Order",
+                        principalTable: "Orders",
                         principalColumn: "OrderID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_OrderDetail_Products_ProductID",
+                        name: "FK_OrderDetails_Products_ProductID",
                         column: x => x.ProductID,
                         principalTable: "Products",
                         principalColumn: "ProductID",
@@ -68,36 +68,26 @@ namespace SignalR.DataAccessLayer.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderDetail_OrderID",
-                table: "OrderDetail",
+                name: "IX_OrderDetails_OrderID",
+                table: "OrderDetails",
                 column: "OrderID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderDetail_ProductID",
-                table: "OrderDetail",
+                name: "IX_OrderDetails_ProductID",
+                table: "OrderDetails",
                 column: "ProductID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "OrderDetail");
+                name: "MoneyCases");
 
             migrationBuilder.DropTable(
-                name: "Order");
+                name: "OrderDetails");
 
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_Testimonial",
-                table: "Testimonial");
-
-            migrationBuilder.RenameTable(
-                name: "Testimonial",
-                newName: "Testimonials");
-
-            migrationBuilder.AddPrimaryKey(
-                name: "PK_Testimonials",
-                table: "Testimonials",
-                column: "TestimonialID");
+            migrationBuilder.DropTable(
+                name: "Orders");
         }
     }
 }

@@ -12,8 +12,8 @@ using SignalR.DataAccessLayer.Concrete;
 namespace SignalR.DataAccessLayer.Migrations
 {
     [DbContext(typeof(SignalRContext))]
-    [Migration("20250217123614_mig_add_order")]
-    partial class mig_add_order
+    [Migration("20250217151008_fix")]
+    partial class fix
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -194,6 +194,22 @@ namespace SignalR.DataAccessLayer.Migrations
                     b.ToTable("Features");
                 });
 
+            modelBuilder.Entity("SignalR.EntityLayer.Entities.MoneyCase", b =>
+                {
+                    b.Property<int>("MoneyCaseID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MoneyCaseID"), 1L, 1);
+
+                    b.Property<decimal>("TotalAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("MoneyCaseID");
+
+                    b.ToTable("MoneyCases");
+                });
+
             modelBuilder.Entity("SignalR.EntityLayer.Entities.Order", b =>
                 {
                     b.Property<int>("OrderID")
@@ -218,7 +234,7 @@ namespace SignalR.DataAccessLayer.Migrations
 
                     b.HasKey("OrderID");
 
-                    b.ToTable("Order");
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("SignalR.EntityLayer.Entities.OrderDetail", b =>
@@ -250,7 +266,7 @@ namespace SignalR.DataAccessLayer.Migrations
 
                     b.HasIndex("ProductID");
 
-                    b.ToTable("OrderDetail");
+                    b.ToTable("OrderDetails");
                 });
 
             modelBuilder.Entity("SignalR.EntityLayer.Entities.Product", b =>
@@ -343,7 +359,7 @@ namespace SignalR.DataAccessLayer.Migrations
 
                     b.HasKey("TestimonialID");
 
-                    b.ToTable("Testimonial");
+                    b.ToTable("Testimonials");
                 });
 
             modelBuilder.Entity("SignalR.EntityLayer.Entities.OrderDetail", b =>
